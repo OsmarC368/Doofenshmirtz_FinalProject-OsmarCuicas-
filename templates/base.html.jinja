@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluacion II</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>  
+
+    <h1 style="color: #189090; font-weight: 600"> Doofenshmirtz </h1>
+
+    <h1>{% block titlePage %} {% endblock %}</h1>
+
+    {% for message in get_flashed_messages()  %}
+        <p style="color: red; font-weight: 600">{{ message }}</p>
+    {% endfor %}
+
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Register {% endblock %}
+
+{% block content %}
+
+    <form method="POST">
+            <div>
+                <label for="email"> Email </label><br>
+                <input type="text" name="email" 
+                placeholder="example123@gmail.com">
+            </div> 
+            <br>
+            <div>
+                <label for="password"> Password </label>
+                <br>
+                <input type="text" name="password" 
+                placeholder="***********">
+            </div>
+            <br>
+            <div>
+                <label for="username"> Username </label>
+                <br>
+                <input type="text" name="username" 
+                placeholder="example123">
+            </div>
+            <br>
+            <input type="submit" value="Submit">
+            <br>
+            <a href="{{ url_for('login') }}"> Login </a>
+        </form>
+{% endblock %}

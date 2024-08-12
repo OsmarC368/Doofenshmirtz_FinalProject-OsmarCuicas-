@@ -1,0 +1,27 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Add Category {% endblock %}
+
+{% block content %}
+
+    <form method="POST">
+            <div>
+                <label for="name"> Name </label><br>
+                <input type="text" name="name" 
+                placeholder="">
+            </div> 
+            <br>
+            <div>
+                <label for="description"> Description </label>
+                <br>
+                <input type="text" name="description" 
+                placeholder="">
+            </div>
+            <br>
+            <input type="submit" value="Submit">
+            <br>
+            <button> Search </button>
+            <button> Modify </button>
+            <button> Delete </button>
+        </form>
+{% endblock %}
