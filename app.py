@@ -15,7 +15,7 @@ def register():
         newUser = {
             'email' : email,
             'password' : password,
-            'username' : username 
+            'username' : username
         }
 
         user.insert_one(newUser)
