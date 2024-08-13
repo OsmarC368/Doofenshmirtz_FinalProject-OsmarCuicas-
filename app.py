@@ -101,6 +101,50 @@ def modifyCategory(id):
 
 
 #=========================================================
+#  MEDICAL INSTRUCTIONS
+#=========================================================
+@app.route("/instruction", methods=["GET", "POST"])
+def saveInstruction():
+    if request.method == "POST":
+        name = request.form['name']
+        description = request.form['description']
+
+        newInstruction = {
+            'name': name,
+            'description': description
+        }
+
+        medicalInstructions.insert_one(newInstruction)
+        return redirect(url_for('saveInstruction'))
+
+    return render_template('./medicalInstruction/medicalInstruction.html.jinja')
+
+@app.route("/instructionList", methods=["GET"])
+def isntructionsListView():
+    intructionList = medicalInstructions.find()
+    return render_template('./medicalInstruction/instructionList.html.jinja', instructionList = intructionList)
+
+@app.route("/delInstruction/<id>", methods=["GET"])
+def delInstruction(id):
+    oid = ObjectId(id)
+    intructionFound = medicalInstructions.find_one_and_delete({'_id' : oid})
+    return redirect(url_for('isntructionsListView'))
+
+@app.route("/updateInstruction/<id>", methods=["GET", "POST"])
+def modifyInstruction(id):
+    oid = ObjectId(id)
+    intructionFound = medicalInstructions.find_one({'_id': oid})
+    if request.method == "POST":
+        new_instruction = request.form
+        instructionX = medicalInstructions.replace_one({'_id': oid},
+                                                        {
+                                                            'name': new_instruction['name'],
+                                                            'description': new_instruction['description']
+                                                        })
+        return redirect(url_for('isntructionsListView'))
+    return render_template("./medicalInstruction/updateInstruction.html.jinja", instruction=intructionFound)
+
+#=========================================================
 
 
 if __name__=='__main__':

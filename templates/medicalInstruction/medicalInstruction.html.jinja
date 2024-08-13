@@ -1,58 +1,27 @@
 {% extends 'base.html.jinja' %}
 
-{% block titlePage %} Añadir Materia {% endblock %}
+{% block titlePage %} Medical Instruction {% endblock %}
 
 {% block content %}
 
     <form method="POST">
             <div>
-                <label for="profName"> Nombre del Profesor </label><br>
-                <input type="text" name="profName" 
+                <label for="name"> Name of the Instruction </label><br>
+                <input type="text" name="name" 
                 placeholder="Juan">
             </div> 
             <br>
             <div>
-                <label for="profLastname"> Apellido del Profesor </label>
+                <label for="description"> Description </label>
                 <br>
-                <input type="text" name="profLastname" 
+                <input type="text" name="description" 
                 placeholder="Castillo">
             </div>
             <br>
-            <div>
-                <label for="profID"> Cedula del Profesor </label>
-                <br>
-                <input type="text" name="profID" 
-                placeholder="00.000.000">
-            </div>
-            <br>
-            <div>
-                <label for="subject"> Nombre de la Materia </label>
-                <br>
-                <input type="text" name="subject" 
-                placeholder="Calculo">
-            </div>
-            <br>
-            <div>
-                <label for="objective">  Objetivo de la Materia </label>
-                <br>
-                <input type="text" name="objective" 
-                placeholder="no se">
-            </div>
-            <br>
-            <div>
-                <label for="duration"> Duración Total en Horas </label>
-                <br>
-                <input type="text" name="duration" 
-                placeholder="40">
-            </div>
-            <br>
-            <div>
-                <label for="passingGrade"> Nota Minima Aprobatoria </label>
-                <br>
-                <input type="text" name="passingGrade" 
-                placeholder="80">
-            </div>
-            <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Save">
         </form>
+{% endblock %}
+
+{% block links %}
+    <a href="./instructionList"> Instruction List <a/>
 {% endblock %}
