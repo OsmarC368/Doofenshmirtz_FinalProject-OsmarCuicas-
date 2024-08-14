@@ -3,23 +3,24 @@
 {% block titlePage %} Login {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
-            <div>
-                <label for="username"> Username </label><br>
-                <input type="text" name="username" 
-                placeholder="example123">
-            </div> 
-            <br>
-            <div>
-                <label for="password"> Password </label>
+    <div class="login">
+        <form method="POST">
+                <div>
+                    <label for="username"> Username </label><br>
+                    <input type="text" name="username" 
+                    placeholder="example123">
+                </div> 
                 <br>
-                <input type="text" name="password" 
-                placeholder="Castillo">
-            </div>
-            <br>
-            <input type="submit" value="Submit">
-            <br>
-            <a href="{{ url_for('register') }}"> Register </a>
+                <div>
+                    <label for="password"> Password </label>
+                    <br>
+                    <input type="text" name="password" 
+                    placeholder="Castillo">
+                </div>
+                <br>
+                <input type="submit" value="Submit" class="loginSubmit">
+                <br>
+                <a href="{{ url_for('register') }}"> Register </a>
         </form>
+    </div>
 {% endblock %}
