@@ -1,0 +1,22 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Exams/Services List {% endblock %}
+
+{% block content %}
+<a href='/ExamsServices'> Back </a>
+<a href='/home'> Home </a>
+<ul>
+<p>====================================================================</p>
+    {% for exam in examList %}
+        <li>
+            <p> Exam/Service Code: {{exam.code}} </p>
+            <p> Category: {{exam.category}} </p>
+            <p> Sample Type: {{exam.sampleType}} </p>
+            <p> Cost: {{exam.cost}}Bs </p>
+            <p> Medical Instructions: {{exam.medicalInstruction}} </p>
+            <a href="/ExamsServices/Update/{{exam._id}}"> Modify </a> <a href="/ExamsServices/DelExamService/{{exam._id}}"> Delete </a>
+            <p>====================================================================</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

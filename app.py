@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
-from DB.db import category, medicalInstructions, testService, user
+from DB.db import category, medicalInstructions, examService, user
 from bson.objectid import ObjectId
 
 app = Flask(__name__, template_folder="./templates")
@@ -146,6 +146,72 @@ def modifyInstruction(id):
 
 #=========================================================
 
+#=========================================================
+#  Exams / Service
+#=========================================================
+@app.route("/ExamsServices", methods=["GET", "POST"])
+def saveExam():
+
+    categories = category.find()
+    instructionList = medicalInstructions.find()
+
+    if request.method == "POST":
+        code = request.form['examCode']
+        categoryX = request.form['category']
+        sampleType = request.form['sampleType']
+        cost = request.form['cost']
+        medicalInstructionsX = request.form['instruction']
+
+        newExam = {
+            'code': code,
+            'categoryCode': categoryX,
+            'sampleType': sampleType,
+            'cost': cost,
+            'medicalInstructionCode': medicalInstructionsX,
+            'category': category.find_one({'_id': ObjectId(categoryX)})['name'],
+            'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(medicalInstructionsX)})['name']
+        }
+
+        examService.insert_one(newExam)
+        return redirect(url_for('saveExam'))
+
+    return render_template('./examService/examService.html.jinja', categories = categories, instructionsList = instructionList)
+
+@app.route("/ExamsServices/List", methods=["GET"])
+def examListView():
+    examList = examService.find()
+    instructions = medicalInstructions.find()
+    categories = category.find()
+    return render_template('./examService/examServiceList.html.jinja', examList = examList, instructions = instructions, categories = categories)
+
+@app.route("/ExamsServices/DelExamService/<id>", methods=["GET"])
+def delExamService(id):
+    oid = ObjectId(id)
+    examFound = examService.find_one_and_delete({'_id' : oid})
+    return redirect(url_for('examListView'))
+
+@app.route("/ExamsServices/Update/<id>", methods=["GET", "POST"])
+def modifyExam(id):
+    oid = ObjectId(id)
+    categories = category.find()
+    instructionList = medicalInstructions.find()
+    examFound = examService.find_one({'_id': oid})
+    if request.method == "POST":
+        new_exam = request.form
+        examX = examService.replace_one({'_id': oid},
+                                                        {
+                                                            'code': new_exam['examCode'],
+                                                            'categoryCode': new_exam['category'],
+                                                            'sampleType': new_exam['sampleType'],
+                                                            'cost': new_exam['cost'],
+                                                            'medicalInstructionCode': new_exam['instruction'],
+                                                            'category': category.find_one({'_id': ObjectId(new_exam['category'])})['name'],
+                                                            'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(new_exam['instruction'])})['name']
+                                                        })
+        return redirect(url_for('examListView'))
+    return render_template("./examService/updateExam.html.jinja", exam=examFound, categories = categories, instructionsList = instructionList)
+
+#=========================================================
 
 if __name__=='__main__':
     app.run(debug=True)
