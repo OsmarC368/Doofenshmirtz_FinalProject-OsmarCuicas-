@@ -157,6 +157,7 @@ def saveExam():
 
     if request.method == "POST":
         code = request.form['examCode']
+        name = request.form['name']
         categoryX = request.form['category']
         sampleType = request.form['sampleType']
         cost = request.form['cost']
@@ -164,6 +165,7 @@ def saveExam():
 
         newExam = {
             'code': code,
+            'name': name,
             'categoryCode': categoryX,
             'sampleType': sampleType,
             'cost': cost,
@@ -201,6 +203,7 @@ def modifyExam(id):
         examX = examService.replace_one({'_id': oid},
                                                         {
                                                             'code': new_exam['examCode'],
+                                                            'name': new_exam['name'],
                                                             'categoryCode': new_exam['category'],
                                                             'sampleType': new_exam['sampleType'],
                                                             'cost': new_exam['cost'],
@@ -210,6 +213,23 @@ def modifyExam(id):
                                                         })
         return redirect(url_for('examListView'))
     return render_template("./examService/updateExam.html.jinja", exam=examFound, categories = categories, instructionsList = instructionList)
+
+@app.route("/ExamsServices/Details/<id>", methods=["GET"])
+def examDetails(id):
+    oid = ObjectId(id)
+    examFound = examService.find_one({'_id' : oid})
+    return render_template("./examService/examDetails.html.jinja", exam=examFound)
+
+#=========================================================
+#  CATALOG
+#=========================================================
+@app.route("/Catalog", methods=["GET", "POST"])
+def catalog():
+    examList = examService.find()
+    
+    return render_template('./Catalog/catalog.html.jinja', examList=examList)
+
+
 
 #=========================================================
 

@@ -1,8 +1,10 @@
 {% extends 'base.html.jinja' %}
 
-{% block titlePage %} Añadir Materia {% endblock %}
+{% block titlePage %} Exams/Services Update {% endblock %}
 
 {% block content %}
+
+
 
     <form method="POST">
             <div>
@@ -10,6 +12,14 @@
                 <input type="text" name="examCode"
                 value="{{exam.code}}"
                 placeholder="000123">
+            </div>
+            <br>
+            <div>
+                <label for="name"> Name </label>
+                <br>
+                <input type="text" name="name"
+                value="{{exam.name}}"
+                placeholder="">
             </div> 
             <br>
             <div>

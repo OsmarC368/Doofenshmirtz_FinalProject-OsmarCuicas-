@@ -1,6 +1,6 @@
 {% extends 'base.html.jinja' %}
 
-{% block titlePage %} Añadir Materia {% endblock %}
+{% block titlePage %} Exams/Services {% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,14 @@
                 <label for="examCode"> Exam/Service Code </label><br>
                 <input type="text" name="examCode" 
                 placeholder="000123">
-            </div> 
+            </div>
+            <br>
+            <div>
+                <label for="name"> Name </label>
+                <br>
+                <input type="text" name="name" 
+                placeholder="type 1">
+            </div>
             <br>
             <div>
                 <label for="category"> Category </label>
