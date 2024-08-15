@@ -226,8 +226,16 @@ def examDetails(id):
 @app.route("/Catalog", methods=["GET", "POST"])
 def catalog():
     examList = examService.find()
-    
-    return render_template('./Catalog/catalog.html.jinja', examList=examList)
+    instructionList = medicalInstructions.find()
+    if request.method == "POST":
+        if request.form["instructions"] != "0":
+            examList = examService.find({'medicalInstruction': request.form["instructions"]})
+        if request.form['sampleType'] != "":
+            examList = [exam for exam in examList if exam['sampleType'] == request.form["sampleType"]]
+        return render_template('./Catalog/catalog.html.jinja', examList=examList, instructionList=instructionList)
+            
+
+    return render_template('./Catalog/catalog.html.jinja', examList=examList, instructionList=instructionList)
 
 
 

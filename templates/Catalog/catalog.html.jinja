@@ -5,19 +5,31 @@
 {% block content %}
     <a href='./home'> Home </a>
     <br>
-    <form>
+    <form method="POST">
         <h3>Filters<h3>
-        <br>
         <div>
-            <input>
-
-            </input>
+            <label for="instructions"> Instruction </label>
+            <br>
+            <select name="instructions">
+                <option value="0"> All </option>
+                {% for instruction in instructionList %}
+                    <option value="{{instruction.name}}"> {{instruction.name}} </option>
+                {% endfor %}
+            </select>
         </div>
+        <div>
+            <label for="sampleType"> Sample Type </label>
+            <input type="text" name="sampleType">
+        </div>
+        <br>
+        <input type="submit" value="submit">
     </form>
+    <br>
     <br>
     <table>
         <tr>
-            <th> Code </th> 
+            <th> Code </th>
+            <th> Name </th>
             <th> Sample Type </th> 
             <th> Cost </th> 
             <th> Options </th> 
