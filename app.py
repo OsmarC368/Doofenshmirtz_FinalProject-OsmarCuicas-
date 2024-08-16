@@ -240,6 +240,34 @@ def catalog():
 
 
 #=========================================================
+#  REPORT
+#=========================================================
+@app.route("/Report", methods=["GET"])
+def report():
+
+    examList = examService.find()
+    catList = category.find()
+
+    for category in catList:
+        i = 0
+        catNewList = []
+        for exam in examList:
+            if exam['category'] == category['name']:
+                i += 1
+        catNewList.append({'category': category['name'], 'num': str(i)})
+
+
+    int1 = [exam for exam in examList if float(exam['cost']) < 100 ]         
+    int2 = [exam for exam in examList if float(exam['cost']) < 200 ]
+    int3 = [exam for exam in examList if float(exam['cost']) < 300 ]
+    int4 = [exam for exam in examList if float(exam['cost']) < 500 ]
+    int5 = [exam for exam in examList if float(exam['cost']) > 500 ]
+
+    return render_template('./Catalog/report.html.jinja', int1=int1, int1=int2, int1=int3, int4=int4, int5=int5, categoryList=catNewList)
+
+
+
+#=========================================================
 
 if __name__=='__main__':
     app.run(debug=True)

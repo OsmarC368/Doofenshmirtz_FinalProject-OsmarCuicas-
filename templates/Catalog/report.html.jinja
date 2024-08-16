@@ -1,0 +1,63 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Exams/Services Report {% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h2> Categories </h2>
+            {% for category in categoryList %}
+                <h3> Number of Exams in Category "{{category.name}}": {{category.num}}</h3>
+            {% endfor %}
+        </div>
+        <br>
+        <div>
+            <h2> Most Common Medical Indication </h2>
+            <h3> {{medicalInstruction.name}} </h3>
+            <p> {{medicalInstruction.description}} </p>
+        </div>
+        <br>
+        <div>
+            <div>
+                <h2> interval 1-100Bs N#: {{int1|length}} </h2>
+                {% for exam in int1 %}
+                    <p> Exam/Service Name: {{exam.name}} </p>
+                    <p> Cost: {{exam.cost}}Bs </p>
+                {% endofor %}
+            </div>
+            <div>
+                <h2> interval 101-200Bs N#: {{int2|length}} </h2>
+                {% for exam in int2 %}
+                    <p> Exam/Service Name: {{exam.name}} </p>
+                    <p> Cost: {{exam.cost}}Bs </p>
+                {% endofor %}
+            </div>
+            <div>
+                <h2> interval 201-300Bs N#: {{int3|length}} </h2>
+                {% for exam in int3 %}
+                    <p> Exam/Service Name: {{exam.name}} </p>
+                    <p> Cost: {{exam.cost}}Bs </p>
+                {% endofor %}
+            </div>
+            <div>
+                <h2> interval 301-500Bs N#: {{int4|length}} </h2>
+                {% for exam in int4 %}
+                    <p> Exam/Service Name: {{exam.name}} </p>
+                    <p> Cost: {{exam.cost}}Bs </p>
+                {% endofor %}
+            </div>
+            <div>
+                <h2> interval 501+ Bs N#: {{int5|length}} </h2>
+                {% for exam in int5 %}
+                    <p> Exam/Service Name: {{exam.name}} </p>
+                    <p> Cost: {{exam.cost}}Bs </p>
+                {% endofor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block links %}
+    <a href="/home"> Home </a>
+{% endblock %}
