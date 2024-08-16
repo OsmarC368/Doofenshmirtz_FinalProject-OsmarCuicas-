@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 from DB.db import category, medicalInstructions, examService, user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from bson.objectid import ObjectId
 
 app = Flask(__name__, template_folder="./templates")
@@ -21,6 +22,12 @@ def home():
 #=========================================================
 #  LOGIN
 #=========================================================
+
+class User(UserMixin):
+    pass
+
+@
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -44,15 +51,21 @@ def login():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
-        userFound = user.find_one({'username': username})
+        userFound = user.find_one({'username': username, 'password': password})
         if not userFound:
+            flash("error")
             return render_template('login.html.jinja')
         else:
-            if userFound['password'] == password:
-                userLoged = userFound
-                return render_template('home.html.jinja', userLoged = userLoged)
-
+            user_obj = User()
+            user_obj.id = str(user['_id'])
+            return render_template('home.html.jinja', userLoged = userLoged)
+            
     return render_template('login.html.jinja')
+
+@app.route("/logout", methods=['GET'])
+@login_required
+def logout():
+
 
 #=========================================================
 #  CATEGORY
@@ -168,7 +181,7 @@ def saveExam():
             'name': name,
             'categoryCode': categoryX,
             'sampleType': sampleType,
-            'cost': cost,
+            'cost': float(cost),
             'medicalInstructionCode': medicalInstructionsX,
             'category': category.find_one({'_id': ObjectId(categoryX)})['name'],
             'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(medicalInstructionsX)})['name']
@@ -206,7 +219,7 @@ def modifyExam(id):
                                                             'name': new_exam['name'],
                                                             'categoryCode': new_exam['category'],
                                                             'sampleType': new_exam['sampleType'],
-                                                            'cost': new_exam['cost'],
+                                                            'cost': float(new_exam['cost']),
                                                             'medicalInstructionCode': new_exam['instruction'],
                                                             'category': category.find_one({'_id': ObjectId(new_exam['category'])})['name'],
                                                             'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(new_exam['instruction'])})['name']
@@ -245,25 +258,48 @@ def catalog():
 @app.route("/Report", methods=["GET"])
 def report():
 
-    examList = examService.find()
-    catList = category.find()
+    catNewList = []
+    top = 0
+    instruction = {}
 
-    for category in catList:
+    interval = {
+        'int1': 0,
+        'int2': 0,
+        'int3': 0,
+        'int4': 0,
+        'int5': 0
+    }
+
+    for exam in examService.find():
+        if exam['cost'] <= 100:
+            interval['int1'] += 1
+        elif exam['cost'] <= 200:
+            interval['int2'] += 1
+        elif exam['cost'] <= 300:
+            interval['int3'] += 1
+        elif exam['cost'] <= 500:
+            interval['int4'] += 1
+        elif exam['cost'] > 500:
+            interval['int5'] += 1
+
+    for inst in medicalInstructions.find():
         i = 0
-        catNewList = []
-        for exam in examList:
-            if exam['category'] == category['name']:
+        for exam in examService.find():
+            if exam['medicalInstruction'] == inst['name']:
                 i += 1
-        catNewList.append({'category': category['name'], 'num': str(i)})
+        if i > top:
+            top = i
+            instruction = {'name': inst['name'], 'description': inst['description']}
+        
 
+    for cat in category.find():
+        i = 0
+        for exam in examService.find():
+            if exam['category'] == cat['name']:
+                i += 1
+        catNewList.append({'name': cat['name'], 'num': str(i)})
 
-    int1 = [exam for exam in examList if float(exam['cost']) < 100 ]         
-    int2 = [exam for exam in examList if float(exam['cost']) < 200 ]
-    int3 = [exam for exam in examList if float(exam['cost']) < 300 ]
-    int4 = [exam for exam in examList if float(exam['cost']) < 500 ]
-    int5 = [exam for exam in examList if float(exam['cost']) > 500 ]
-
-    return render_template('./Catalog/report.html.jinja', int1=int1, int1=int2, int1=int3, int4=int4, int5=int5, categoryList=catNewList)
+    return render_template('./Catalog/report.html.jinja', interval=interval , categoryList=catNewList, medicalInstruction=instruction)
 
 
 
