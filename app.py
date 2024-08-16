@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
-from DB.db import category, medicalInstructions, examService, user
+from DB.db import category, medicalInstructions, examService, user, User
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from bson.objectid import ObjectId
 
 app = Flask(__name__, template_folder="./templates")
 app.config['SECRET_KEY'] = "twiceot9"
 userLoged = {}
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 #=========================================================
@@ -23,10 +25,14 @@ def home():
 #  LOGIN
 #=========================================================
 
-class User(UserMixin):
-    pass
-
-@
+@login_manager.user_loader
+def load_user(user_id):
+    userX = user.find_one({'_id': ObjectId(user_id)})
+    if userX:
+        user_obj = User()
+        user_obj.id = str(user['_id'])
+        return user_obj
+    return None
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -53,25 +59,27 @@ def login():
         password = request.form['password']
         userFound = user.find_one({'username': username, 'password': password})
         if not userFound:
-            flash("error")
+            flash('Please check your login details and try again.')
             return render_template('login.html.jinja')
         else:
             user_obj = User()
             user_obj.id = str(user['_id'])
+            login_user(user_obj)
             return render_template('home.html.jinja', userLoged = userLoged)
-            
     return render_template('login.html.jinja')
 
 @app.route("/logout", methods=['GET'])
 @login_required
 def logout():
-
+    logout_user()
+    return redirect(url_for('login'))
 
 #=========================================================
 #  CATEGORY
 #=========================================================
 
 @app.route("/category", methods=["GET", "POST"])
+@login_required
 def saveCategory():
     if request.method == "POST":
         name = request.form['name']
