@@ -1,0 +1,11 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Home {% endblock %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <img src="{{url_for('static', filename='perry.jpg')}}" alt="a">
+    {% else %}
+        <img src="{{url_for('static', filename='maxresdefault.jpg')}}" alt="EmailIcon">
+    {% endif %}
+{% endblock %}
