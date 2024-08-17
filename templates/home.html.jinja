@@ -4,6 +4,8 @@
 
 {% block content %}
     {% if current_user.is_authenticated %}
-
+        <img src="./perry.jpg" alt="a">
+    {% else %}
+        <img src="./maxresdefault.png" alt="EmailIcon">
     {% endif %}
 {% endblock %}

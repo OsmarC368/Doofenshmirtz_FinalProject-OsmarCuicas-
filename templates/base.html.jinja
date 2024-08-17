@@ -18,24 +18,32 @@
             </div>
             <div class="navbar-end">
                 {% if current_user.is_authenticated %}
-                    <a class="navbar-item" href='{{ url_for('report') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> Report </h1>
-                    </a>
-                    <a class="navbar-item" href='{{ url_for('catalog') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> Catalog </h1>
-                    </a>
-                    <a class="navbar-item" href='{{ url_for('saveCategory') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> Category </h1>
-                    </a>
-                    <a class="navbar-item" href='{{ url_for('saveInstruction') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> Medical Instructions </h1>
-                    </a>
-                    <a class="navbar-item" href='{{ url_for('saveExam') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> Exam/Serevice </h1>
-                    </a>
-                    <a class="navbar-item" href='{{ url_for('logout') }}'>
-                    <h1 style="color: #189090; font-weight: 600"> log out </h1>
-                    </a>
+                    <div class="navbar-item has-dropdown is-active">
+                        <a class="navbar-link">
+                            Menu
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href='{{ url_for('report') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> Report </h1>
+                            </a>
+                            <a class="navbar-item" href='{{ url_for('catalog') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> Catalog </h1>
+                            </a>
+                            <a class="navbar-item" href='{{ url_for('saveCategory') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> Category </h1>
+                            </a>
+                            <a class="navbar-item" href='{{ url_for('saveInstruction') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> Medical Instructions </h1>
+                            </a>
+                            <a class="navbar-item" href='{{ url_for('saveExam') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> Exam/Service </h1>
+                            </a>
+                            
+                        </div>
+                        <a class="navbar-item" href='{{ url_for('logout') }}'>
+                            <h1 style="color: #189090; font-weight: 600"> log out </h1>
+                        </a>
+                    </div>
                 {% else %}
                     <a class="navbar-item" href='{{ url_for('login') }}'>
                     <h1 style="color: #189090; font-weight: 600"> Login </h1>
@@ -49,7 +57,7 @@
         </nav>
     </header>
 
-    <section class="container">
+    <section class="section">
         {% for category, message in get_flashed_messages(with_categories=true)  %}
             {% if category == 'Error'%}
                 <div class="container container is-max-width">
@@ -73,10 +81,6 @@
         <div class="content">
             {% block content %} {% endblock %}
         </div>
-        <nav>
-            {% block links %}
-            {% endblock %}
-        </nav>
     </section>
 
 </body>

@@ -3,15 +3,14 @@
 {% block titlePage %} Exams/Services Update {% endblock %}
 
 {% block content %}
-
-
-
-    <form method="POST">
+    <div class="form">
+        <form method="POST">
             <div>
                 <label for="examCode"> Exam/Service Code </label><br>
-                <input type="text" name="examCode"
-                value="{{exam.code}}"
+                <input type="text" name="examCode" 
                 placeholder="000123"
+                value="{{exam.code}}"
+                class="input"
                 required>
             </div>
             <br>
@@ -19,10 +18,11 @@
                 <label for="name"> Name </label>
                 <br>
                 <input type="text" name="name"
-                value="{{exam.name}}"
                 placeholder="Name"
+                class="input"
+                value="{{exam.name}}"
                 required>
-            </div> 
+            </div>
             <br>
             <div>
                 <label for="category"> Category </label>
@@ -41,9 +41,10 @@
             <div>
                 <label for="sampleType"> Sample Type </label>
                 <br>
-                <input type="text" name="sampleType"
-                value="{{exam.sampleType}}"
+                <input type="text" name="sampleType" 
                 placeholder="type 1"
+                class="input"
+                value="{{exam.sampleType}}"
                 required>
             </div>
             <br>
@@ -53,6 +54,7 @@
                 <input type="number" name="cost" 
                 min='0'
                 step='0.01'
+                class="input"
                 value='{{exam.cost}}'
                 required>
             </div>
@@ -72,8 +74,12 @@
             </div>
             <br>
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Save" class="button">
+            <div class="buttonLink">
+                <a href="{{url_for('examListView')}}" class="label"> Exam/Service List <a/>
+            <div>
         </form>
+    </div>
 {% endblock %}
 
 {% block links %}

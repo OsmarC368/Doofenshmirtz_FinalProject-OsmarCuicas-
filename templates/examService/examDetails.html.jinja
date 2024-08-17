@@ -3,12 +3,16 @@
 {% block titlePage %} Exam/Service Details {% endblock %}
 
 {% block content%}
-    <h2>Exam/Service Code: {{exam.code}}</h2>
-    <h3>Name: {{exam.name}}</h3>
-    <h4>Category: {{exam.category}}</h4>
-    <h4>Category Code: {{exam.categoryCode}}</h4>
-    <h4>Sample Type:{{exam.sampleType}}</h4>
-    <h4>Cost: {{exam.cost}}Bs</h4>
-    <h4>Medical Instructions: {{exam.medicalInstruction}}Bs</h4>
-    <h4>Medical Instruction Code: {{exam.medicalInstructionCode}}Bs</h4>
+    <div class="hero">
+        <div class="container">
+            <h2>Exam/Service Code: {{exam.code}}</h2>
+            <h3>Name: {{exam.name}}</h3>
+            <h4>Category: {{exam.category}}</h4>
+            <h4>Category Code: {{exam.categoryCode}}</h4>
+            <h4>Sample Type:{{exam.sampleType}}</h4>
+            <h4>Cost: {{exam.cost}}Bs</h4>
+            <h4>Medical Instructions: {{exam.medicalInstruction}}Bs</h4>
+            <h4>Medical Instruction Code: {{exam.medicalInstructionCode}}Bs</h4>
+        </div>
+    </div>   
 {% endblock %}

@@ -3,17 +3,18 @@
 {% block titlePage %} instruction List {% endblock %}
 
 {% block content %}
-<a href='/instruction'> Back </a>
-<a href='/home'> Home </a>
-<ul>
-<p>====================================================================</p>
-    {% for instruction in instructionList %}
-        <li>
-            <p> Name of the Instruction: {{instruction.name}} </p>
-            <p>Description: {{instruction.description}}</p>
-            <a href="/instruction/update/{{instruction._id}}"> Modify </a> <a href="/instruction/delete/{{instruction._id}}"> Delete </a>
-            <p>====================================================================</p>
-        </li>
-    {% endfor %}
-</ul>
+<div class="hero">
+    <ul class="list">
+        <p>====================================================================</p>
+        {% for instruction in instructionList %}
+            <li>
+                <p> <strong>Name of the Instruction</strong>: {{instruction.name}} </p>
+                <p><strong>Description</strong>: {{instruction.description}}</p>
+                <a href="/instruction/update/{{instruction._id}}" class="buttonLink"> Modify </a> <a href="/instruction/delete/{{instruction._id}}" class="buttonLink"> Delete </a>
+                <p>====================================================================</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}

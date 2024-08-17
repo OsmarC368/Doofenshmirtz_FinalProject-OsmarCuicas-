@@ -3,26 +3,30 @@
 {% block titlePage %} Modify Category {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
-            <div>
+    <div class="form">
+        <form method="POST">
+            <div class="field">
                 <label for="name"> Name </label><br>
                 <input type="text" name="name" 
-                value="{{category.name}}"
+                class="input"
                 placeholder=""
+                value="{{category.name}}"
                 required>
             </div> 
-            <br>
-            <div>
+            <div class="field">
                 <label for="description"> Description </label>
                 <br>
                 <input type="text" name="description"
-                value="{{category.description}}"
+                class="input"
                 placeholder=""
+                value="{{category.description}}"
                 required>
             </div>
+            <input type="submit" value="Save" class="button">
             <br>
-            <input type="submit" value="Update Category">
-            <br>
+            <div class="buttonLink">
+                <a href="{{url_for('categoriesListView')}}" class="label"> Categories List <a/>
+            <div>
         </form>
+    </div>
 {% endblock %}
