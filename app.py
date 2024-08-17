@@ -196,7 +196,7 @@ def saveExam():
     instructionList = medicalInstructions.find()
 
     if not medicalInstructions.count_documents({}) > 0 or not category.count_documents({}) > 0:
-        flash('In Order to save a Exam/Service you must have at least 1 Category and 1 Medical Instruction')
+        flash('In Order to save a Exam/Service you must have at least 1 Category and 1 Medical Instruction', 'Error')
         return redirect(url_for('home'))
 
     if request.method == "POST":

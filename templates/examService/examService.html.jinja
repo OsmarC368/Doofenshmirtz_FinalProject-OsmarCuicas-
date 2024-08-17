@@ -3,12 +3,13 @@
 {% block titlePage %} Exams/Services {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
+    <div class="form">
+        <form method="POST">
             <div>
                 <label for="examCode"> Exam/Service Code </label><br>
                 <input type="text" name="examCode" 
                 placeholder="000123"
+                class="input"
                 required>
             </div>
             <br>
@@ -17,6 +18,7 @@
                 <br>
                 <input type="text" name="name"
                 placeholder="Name"
+                class="input"
                 required>
             </div>
             <br>
@@ -35,6 +37,7 @@
                 <br>
                 <input type="text" name="sampleType" 
                 placeholder="type 1"
+                class="input"
                 required>
             </div>
             <br>
@@ -45,6 +48,7 @@
                 min='0'
                 step='0.01'
                 value='0'
+                class="input"
                 required>
             </div>
             <br>
@@ -59,8 +63,12 @@
             </div>
             <br>
             <br>
-            <input type="submit" value="Save">
+            <input type="submit" value="Save" class="button">
+            <div class="buttonLink">
+                <a href="{{url_for('examListView')}}" class="label"> Exam/Service List <a/>
+            <div>
         </form>
+    </div>
 {% endblock %}
 
 {% block links %}

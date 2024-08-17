@@ -3,21 +3,21 @@
 {% block titlePage %} Exams/Services List {% endblock %}
 
 {% block content %}
-<a href='/ExamsServices'> Back </a>
-<a href='/home'> Home </a>
-<ul>
-<p>====================================================================</p>
-    {% for exam in examList %}
-        <li>
-            <p> Exam/Service Code: {{exam.code}} </p>
-            <p> Exam/Service Name: {{exam.name}} </p>
-            <p> Category: {{exam.category}} </p>
-            <p> Sample Type: {{exam.sampleType}} </p>
-            <p> Cost: {{exam.cost}}Bs </p>
-            <p> Medical Instructions: {{exam.medicalInstruction}} </p>
-            <a href="/ExamsServices/Update/{{exam._id}}"> Modify </a> <a href="/ExamsServices/DelExamService/{{exam._id}}"> Delete </a>
-            <p>====================================================================</p>
-        </li>
-    {% endfor %}
-</ul>
+<div class="hero+">
+    <ul class="list">
+    <p>====================================================================</p>
+        {% for exam in examList %}
+            <li>
+                <p> Exam/Service Code: {{exam.code}} </p>
+                <p> Exam/Service Name: {{exam.name}} </p>
+                <p> Category: {{exam.category}} </p>
+                <p> Sample Type: {{exam.sampleType}} </p>
+                <p> Cost: {{exam.cost}}Bs </p>
+                <p> Medical Instructions: {{exam.medicalInstruction}} </p>
+                <a href="/ExamsServices/Update/{{exam._id}}" class="buttonLink"> Modify </a> <a href="/ExamsServices/DelExamService/{{exam._id}}" class="buttonLink"> Delete </a>
+                <p>====================================================================</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

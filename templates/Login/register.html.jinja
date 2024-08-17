@@ -3,30 +3,35 @@
 {% block titlePage %} Register {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
-            <div>
+    <div class="form">
+        <form method="POST">
+            <div class="field">
                 <label for="email"> Email </label><br>
-                <input type="text" name="email" 
-                placeholder="example123@gmail.com">
+                <div class="control has-icons-left">
+                    <input type="text" name="email"
+                    class="input"
+                    placeholder="example123@gmail.com">
+                </div>
             </div> 
-            <br>
-            <div>
+            <div class="field">
                 <label for="password"> Password </label>
-                <br>
-                <input type="text" name="password" 
-                placeholder="***********">
+                <div class="control has-icons-left">
+                    <input type="text" name="password"
+                    class="input"
+                    placeholder="***********">
+                </div>
             </div>
-            <br>
-            <div>
+            <div class="field">
                 <label for="username"> Username </label>
-                <br>
-                <input type="text" name="username" 
-                placeholder="example123">
+                <div class="control has-icons-left">
+                    <input type="text" name="username"
+                    class="input"
+                    placeholder="example123">
+                </div>
             </div>
             <br>
-            <input type="submit" value="Submit">
-            <br>
-            <a href="{{ url_for('login') }}"> Login </a>
+            <input type="submit" value="Submit" class="button">
         </form>
+    </div>
+    
 {% endblock %}

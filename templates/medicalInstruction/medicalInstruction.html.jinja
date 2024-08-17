@@ -3,27 +3,31 @@
 {% block titlePage %} Medical Instruction {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
-            <div>
+    <div class="form">
+        <form method="POST">
+            <div class="field">
                 <label for="name"> Name of the Instruction </label><br>
                 <input type="text" name="name" 
+                class="input"
                 placeholder=""
                 required>
             </div> 
-            <br>
-            <div>
+            <div class="field">
                 <label for="description"> Description </label>
                 <br>
-                <input type="text" name="description" 
+                <input type="text" name="description"
+                class="input"
                 placeholder=""
                 required>
             </div>
+            <input type="submit" value="Save" class="button">
             <br>
-            <input type="submit" value="Save">
+            <div class="buttonLink">
+                <a href="{{url_for('isntructionsListView')}}" class="label"> Instruction List <a/>
+            <div>
         </form>
+    </div>
+    
 {% endblock %}
 
-{% block links %}
-    <a href="{{url_for('isntructionsListView')}}"> Instruction List <a/>
-{% endblock %}
+

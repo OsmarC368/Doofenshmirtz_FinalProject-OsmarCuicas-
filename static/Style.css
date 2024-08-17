@@ -1,27 +1,93 @@
-.login {
-    width: 375px;
-    height: 425px;
+:root {
+    --bulma-primary-h: 265deg;
+    --bulma-primary-s: 48%;
+    --bulma-primary-l: 23%;
+}
+
+.form {
+    width: revert-layer;
+    height: revert-layer;
     background-color: #189090;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
-    border: solid 3px #bebebe9a;
+    border: solid 3px #bebebeef;
+    padding: 2.5em;
 }
 
-.login label{
+.form label{
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.33em;
+    color: #ffffff;
 }
 
-.login input{
+.form input{
     border: solid 2px #ffffff;
     width: 295px;
     margin: 15px 0;
     position: relative;
 }
 
+.buttonLink{
+    border: solid 2px #ffffff;
+    width: revert-layer;
+    margin: 0px 0;
+    position: relative;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    background-color: #14161a;
+    transition: .2s;
+    
+}
+.buttonLink a{
+    color: white
+}
+
+.buttonLink:hover{
+    border-radius: 15px;
+    background-color: #f09a42;
+    cursor: pointer;
+    color: #ffffff;
+}
+
 .loginSubmit:hover{
     cursor: pointer;
-    background-color: #d58f39
+    background-color: #f09a42
+}
+
+h1{
+    display: flex;
+    justify-content: space-around;
+}
+
+.content {
+        display: flex;
+        justify-content: center;
+}
+
+.list{
+    background-color: #189090;
+    border: solid 2px #ffffff;
+    border-radius: 10px;
+    color: #ffffff;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.list p{
+    font-size: 1.15em;
+}
+
+select{
+    width: 22.3em;
+    height: 35px;
+    background-color: #14161a;
+    color: white;
+}
+
+.content table th{
+    background-color: #189090;
+    border: solid 2px white;
 }

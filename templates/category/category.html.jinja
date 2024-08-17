@@ -1,30 +1,30 @@
 {% extends 'base.html.jinja' %}
 
-{% block titlePage %} Add Category {% endblock %}
+{% block titlePage %} Category {% endblock %}
 
 {% block content %}
-
-    <form method="POST">
-            <div>
+    <div class="form">
+        <form method="POST">
+            <div class="field">
                 <label for="name"> Name </label><br>
                 <input type="text" name="name" 
+                class="input"
                 placeholder=""
                 required>
             </div> 
-            <br>
-            <div>
+            <div class="field">
                 <label for="description"> Description </label>
                 <br>
-                <input type="text" name="description" 
+                <input type="text" name="description"
+                class="input"
                 placeholder=""
                 required>
             </div>
+            <input type="submit" value="Save" class="button">
             <br>
-            <input type="submit" value="Save">
-            <br>
+            <div class="buttonLink">
+                <a href="{{url_for('categoriesListView')}}" class="label"> Categories List <a/>
+            <div>
         </form>
-{% endblock %}
-
-{% block links %}
-    <a href="{{url_for('categoriesListView')}}"> Categorires List <a/>
+    </div>
 {% endblock %}
