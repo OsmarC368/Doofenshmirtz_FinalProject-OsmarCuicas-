@@ -3,8 +3,8 @@
 {% block titlePage %} Login {% endblock %}
 
 {% block content %}
-    <div class="login">
-        <form class="form" method="POST">
+    <div class="form">
+        <form class="" method="POST">
                 <div class="field">
                     <label for="username"> Username </label><br>
                     <div class="control has-icons-left">
@@ -23,14 +23,12 @@
                         type="password" name="password" 
                         placeholder="*********">
                         <span class="icon is-left">
-                             <i class="fas fa-lock"></i>
+                             <i class="fas fa-home"></i>
                         </span>
                     </div>
                 </div>
                 <br>
                 <input type="submit" value="Login" class="button">
-                <br>
-                <a href="{{ url_for('register') }}"> Register </a>
         </form>
     </div>
 {% endblock %}

@@ -18,7 +18,24 @@
             </div>
             <div class="navbar-end">
                 {% if current_user.is_authenticated %}
-                
+                    <a class="navbar-item" href='{{ url_for('report') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Report </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('catalog') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Catalog </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('saveCategory') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Category </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('saveInstruction') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Medical Instructions </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('saveExam') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Exam/Serevice </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('logout') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> log out </h1>
+                    </a>
                 {% else %}
                     <a class="navbar-item" href='{{ url_for('login') }}'>
                     <h1 style="color: #189090; font-weight: 600"> Login </h1>

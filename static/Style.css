@@ -4,24 +4,25 @@
     --bulma-primary-l: 23%;
 }
 
-.login {
-    width: 375px;
-    height: 425px;
+.form {
+    width: revert-layer;
+    height: revert-layer;
     background-color: #189090;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
     border: solid 3px #bebebeef;
+    padding: 3em;
 }
 
-.login label{
+.form label{
     text-align: center;
     font-size: 1.33em;
     color: #ffffff;
 }
 
-.login input{
+.form input{
     border: solid 2px #ffffff;
     width: 295px;
     margin: 15px 0;
@@ -42,3 +43,4 @@ h1{
         display: flex;
         justify-content: center;
 }
+
