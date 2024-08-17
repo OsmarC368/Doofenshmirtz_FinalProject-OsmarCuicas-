@@ -1,3 +1,9 @@
+:root {
+    --bulma-primary-h: 265deg;
+    --bulma-primary-s: 42%;
+    --bulma-primary-l: 23%;
+}
+
 .login {
     width: 375px;
     height: 425px;
@@ -6,12 +12,13 @@
     align-items: center;
     justify-content: center;
     border-radius: 15px;
-    border: solid 3px #bebebe9a;
+    border: solid 3px #bebebeef;
 }
 
 .login label{
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.33em;
+    color: #ffffff;
 }
 
 .login input{
@@ -24,4 +31,14 @@
 .loginSubmit:hover{
     cursor: pointer;
     background-color: #d58f39
+}
+
+h1{
+    display: flex;
+    justify-content: space-around;
+}
+
+.content {
+        display: flex;
+        justify-content: center;
 }

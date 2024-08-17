@@ -2,30 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Evaluacion II</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 </head>
 <body>  
 
-    <h1 style="color: #189090; font-weight: 600"> Doofenshmirtz </h1>
+    <header>
+        <nav class="navbar is-primary">
+            <div class="navbar-start">
+                <a class="navbar-item" href='{{ url_for('home') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Doofenshmirtz </h1>
+                </a>
+            </div>
+            <div class="navbar-end">
+                {% if current_user.is_authenticated %}
+                
+                {% else %}
+                    <a class="navbar-item" href='{{ url_for('login') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Login </h1>
+                    </a>
+                    <a class="navbar-item" href='{{ url_for('register') }}'>
+                    <h1 style="color: #189090; font-weight: 600"> Register </h1>
+                    </a>
+                {% endif %}
+            </div>
 
-    <h1>{% block titlePage %} {% endblock %}</h1>
+        </nav>
+    </header>
 
-    {% for category, message in get_flashed_messages(with_categories=true)  %}
-        {% if category == 'Error'%}
-            <p style="color: red; font-weight: 600">{{ message }}</p>
-        {% else %}
-            <p style="color: blue; font-weight: 600">{{ message }}</p>
-        {% endif %}
-    {% endfor %}
+    <section class="container">
+        {% for category, message in get_flashed_messages(with_categories=true)  %}
+            {% if category == 'Error'%}
+                <div class="container container is-max-width">
+                    <div class="notification has-background-danger-dark">
+                        {{ message }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="container container is-max-width">
+                    <div class="notification has-background-success">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <br>
+        <div class="container">
+            <h1 class="title">{% block titlePage %} {% endblock %}</h1>
+        </div>
+        <br>
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+        <nav>
+            {% block links %}
+            {% endblock %}
+        </nav>
+    </section>
 
-    <div class="content">
-        {% block content %} {% endblock %}
-    </div>
-    <nav>
-        {% block links %}
-        {% endblock %}
-    </nav>
 </body>
 </html>

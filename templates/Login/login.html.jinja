@@ -4,21 +4,31 @@
 
 {% block content %}
     <div class="login">
-        <form method="POST">
-                <div>
+        <form class="form" method="POST">
+                <div class="field">
                     <label for="username"> Username </label><br>
-                    <input type="text" name="username" 
-                    placeholder="example123">
-                </div> 
-                <br>
-                <div>
+                    <div class="control has-icons-left">
+                        <input class="input" 
+                        type="text" name="username" 
+                        placeholder="example123">
+                        <span class="icon is-left">
+                             <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
                     <label for="password"> Password </label>
-                    <br>
-                    <input type="password" name="password" 
-                    placeholder="*********">
+                    <div class="control has-icons-left">
+                        <input class="input" 
+                        type="password" name="password" 
+                        placeholder="*********">
+                        <span class="icon is-left">
+                             <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
                 </div>
                 <br>
-                <input type="submit" value="Login" class="loginSubmit">
+                <input type="submit" value="Login" class="button">
                 <br>
                 <a href="{{ url_for('register') }}"> Register </a>
         </form>
