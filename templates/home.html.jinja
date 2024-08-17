@@ -3,7 +3,11 @@
 {% block titlePage %} Home {% endblock %}
 
 {% block content %}
-    <h2> Welcome {{userLoged.username}} </h2>
+    {% if current_user.is_authenticated %}
+        <h2> Welcome {{ current_user.username }} </h2>
+    <a href='{{ url_for('logout') }}'> log out </a>
+
+    {% endif %}
     <p> Work In Progress </p>
     <br>
 {% endblock %}
@@ -17,5 +21,5 @@
     <br>
     <a href='./Catalog'> Catalog </a>
     <br>
-    <a href='./login'> log out </a>
+    <a href='{{ url_for('login') }}'> Login </a>
 {% endblock %}

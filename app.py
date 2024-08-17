@@ -15,11 +15,11 @@ login_manager.init_app(app)
 #=========================================================
 @app.route("/", methods=["GET"])
 def default():
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route("/home", methods=["GET"])
 def home():
-    return render_template('home.html.jinja', userLoged=userLoged)
+    return render_template('home.html.jinja')
 
 #=========================================================
 #  LOGIN
@@ -50,7 +50,7 @@ def register():
         user.insert_one(newUser)
         return redirect(url_for('login'))
 
-    return render_template('register.html.jinja')
+    return render_template('./Login/register.html.jinja')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -60,13 +60,14 @@ def login():
         userFound = user.find_one({'username': username, 'password': password})
         if not userFound:
             flash('Please check your login details and try again.')
-            return render_template('login.html.jinja')
+            return render_template('Login/login.html.jinja')
         else:
             user_obj = User()
-            user_obj.id = str(user['_id'])
+            user_obj.id = str(userFound['_id'])
+            user_obj.username = userFound['username']
             login_user(user_obj)
             return render_template('home.html.jinja', userLoged = userLoged)
-    return render_template('login.html.jinja')
+    return render_template('./Login/login.html.jinja')
 
 @app.route("/logout", methods=['GET'])
 @login_required
@@ -96,17 +97,20 @@ def saveCategory():
     return render_template('./category/category.html.jinja')
 
 @app.route("/categoriesList", methods=["GET"])
+@login_required
 def categoriesListView():
     categoriesList = category.find()
     return render_template('./category/categoriesList.html.jinja', categoriesList = categoriesList)
 
 @app.route("/delCategory/<id>", methods=["GET"])
+@login_required
 def delCategory(id):
     oid = ObjectId(id)
     catFound = category.find_one_and_delete({'_id' : oid})
     return redirect(url_for('categoriesListView'))
 
 @app.route("/updateCategory/<id>", methods=["GET", "POST"])
+@login_required
 def modifyCategory(id):
     oid = ObjectId(id)
     catFound = category.find_one({'_id': oid})
@@ -125,6 +129,7 @@ def modifyCategory(id):
 #  MEDICAL INSTRUCTIONS
 #=========================================================
 @app.route("/instruction", methods=["GET", "POST"])
+@login_required
 def saveInstruction():
     if request.method == "POST":
         name = request.form['name']
@@ -141,17 +146,20 @@ def saveInstruction():
     return render_template('./medicalInstruction/medicalInstruction.html.jinja')
 
 @app.route("/instructionList", methods=["GET"])
+@login_required
 def isntructionsListView():
     intructionList = medicalInstructions.find()
     return render_template('./medicalInstruction/instructionList.html.jinja', instructionList = intructionList)
 
 @app.route("/delInstruction/<id>", methods=["GET"])
+@login_required
 def delInstruction(id):
     oid = ObjectId(id)
     intructionFound = medicalInstructions.find_one_and_delete({'_id' : oid})
     return redirect(url_for('isntructionsListView'))
 
 @app.route("/updateInstruction/<id>", methods=["GET", "POST"])
+@login_required
 def modifyInstruction(id):
     oid = ObjectId(id)
     intructionFound = medicalInstructions.find_one({'_id': oid})
@@ -171,6 +179,7 @@ def modifyInstruction(id):
 #  Exams / Service
 #=========================================================
 @app.route("/ExamsServices", methods=["GET", "POST"])
+@login_required
 def saveExam():
 
     categories = category.find()
@@ -201,6 +210,7 @@ def saveExam():
     return render_template('./examService/examService.html.jinja', categories = categories, instructionsList = instructionList)
 
 @app.route("/ExamsServices/List", methods=["GET"])
+@login_required
 def examListView():
     examList = examService.find()
     instructions = medicalInstructions.find()
@@ -208,12 +218,14 @@ def examListView():
     return render_template('./examService/examServiceList.html.jinja', examList = examList, instructions = instructions, categories = categories)
 
 @app.route("/ExamsServices/DelExamService/<id>", methods=["GET"])
+@login_required
 def delExamService(id):
     oid = ObjectId(id)
     examFound = examService.find_one_and_delete({'_id' : oid})
     return redirect(url_for('examListView'))
 
 @app.route("/ExamsServices/Update/<id>", methods=["GET", "POST"])
+@login_required
 def modifyExam(id):
     oid = ObjectId(id)
     categories = category.find()
@@ -236,6 +248,7 @@ def modifyExam(id):
     return render_template("./examService/updateExam.html.jinja", exam=examFound, categories = categories, instructionsList = instructionList)
 
 @app.route("/ExamsServices/Details/<id>", methods=["GET"])
+@login_required
 def examDetails(id):
     oid = ObjectId(id)
     examFound = examService.find_one({'_id' : oid})
@@ -245,6 +258,7 @@ def examDetails(id):
 #  CATALOG
 #=========================================================
 @app.route("/Catalog", methods=["GET", "POST"])
+@login_required
 def catalog():
     examList = examService.find()
     instructionList = medicalInstructions.find()
@@ -264,6 +278,7 @@ def catalog():
 #  REPORT
 #=========================================================
 @app.route("/Report", methods=["GET"])
+@login_required
 def report():
 
     catNewList = []
