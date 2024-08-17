@@ -1,6 +1,6 @@
 {% extends 'base.html.jinja' %}
 
-{% block titlePage %} Add Category {% endblock %}
+{% block titlePage %} Modify Category {% endblock %}
 
 {% block content %}
 
@@ -8,6 +8,7 @@
             <div>
                 <label for="name"> Name </label><br>
                 <input type="text" name="name" 
+                value="{{category.name}}"
                 placeholder=""
                 required>
             </div> 
@@ -15,16 +16,13 @@
             <div>
                 <label for="description"> Description </label>
                 <br>
-                <input type="text" name="description" 
+                <input type="text" name="description"
+                value="{{category.description}}"
                 placeholder=""
                 required>
             </div>
             <br>
-            <input type="submit" value="Save">
+            <input type="submit" value="Update Category">
             <br>
         </form>
-{% endblock %}
-
-{% block links %}
-    <a href="{{url_for('categoriesListView')}}"> Categorires List <a/>
 {% endblock %}

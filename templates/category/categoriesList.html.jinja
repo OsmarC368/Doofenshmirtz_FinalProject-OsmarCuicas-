@@ -1,0 +1,19 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Categories List {% endblock %}
+
+{% block content %}
+<a href='/category'> Back </a>
+<a href='/home'> Home </a>
+<ul>
+<p>====================================================================</p>
+    {% for category in categoriesList %}
+        <li>
+            <p> Name of the Category: {{category.name}} </p>
+            <p>Description: {{category.description}}</p>
+            <a href="/category/update/{{category._id}}"> Modify </a> <a href="/category/delete/{{category._id}}"> Delete </a>
+            <p>====================================================================</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

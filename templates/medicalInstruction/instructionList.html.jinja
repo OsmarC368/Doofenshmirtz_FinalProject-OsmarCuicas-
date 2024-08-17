@@ -1,0 +1,19 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} instruction List {% endblock %}
+
+{% block content %}
+<a href='/instruction'> Back </a>
+<a href='/home'> Home </a>
+<ul>
+<p>====================================================================</p>
+    {% for instruction in instructionList %}
+        <li>
+            <p> Name of the Instruction: {{instruction.name}} </p>
+            <p>Description: {{instruction.description}}</p>
+            <a href="/instruction/update/{{instruction._id}}"> Modify </a> <a href="/instruction/delete/{{instruction._id}}"> Delete </a>
+            <p>====================================================================</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

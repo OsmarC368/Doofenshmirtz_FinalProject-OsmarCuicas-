@@ -1,0 +1,43 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Exams/Services Report {% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h2> Categories </h2>
+            {% for category in categoryList %}
+                <h3> Number of Exams in Category "{{category.name}}": {{category.num}}</h3>
+            {% endfor %}
+        </div>
+        <br>
+        <div>
+            <h2> Most Common Medical Indication </h2>
+            <h3> {{medicalInstruction.name}} </h3>
+            <p> {{medicalInstruction.description}} </p>
+        </div>
+        <br>
+        <div>
+            <div>
+                <h2> interval 1-100Bs N#: {{interval.int1}} </h2>
+            </div>
+            <div>
+                <h2> interval 101-200Bs N#: {{interval.int2}} </h2>
+            </div>
+            <div>
+                <h2> interval 201-300Bs N#: {{interval.int3}} </h2>
+            </div>
+            <div>
+                <h2> interval 301-500Bs N#: {{interval.int4}} </h2>
+            </div>
+            <div>
+                <h2> interval 501+ Bs N#: {{interval.int5}} </h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block links %}
+    <a href="/home"> Home </a>
+{% endblock %}

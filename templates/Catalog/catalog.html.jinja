@@ -1,0 +1,56 @@
+{% extends 'base.html.jinja' %}
+
+{% block titlePage %} Exams/Services Catalog {% endblock %}
+
+{% block content %}
+    <a href='./home'> Home </a>
+    <br>
+    <form method="POST">
+        <h3>Filters<h3>
+        <div>
+            <label for="instructions"> Instruction </label>
+            <br>
+            <select name="instructions">
+                <option value="0"> All </option>
+                {% for instruction in instructionList %}
+                    <option value="{{instruction.name}}"> {{instruction.name}} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="sampleType"> Sample Type </label>
+            <input type="text" name="sampleType">
+        </div>
+        <br>
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th> Code </th>
+            <th> Name </th>
+            <th> Sample Type </th> 
+            <th> Cost </th> 
+            <th> Options </th> 
+        </tr>
+        {% for exam in examList %}
+            <tr>
+                <td> {{exam.code}} </td> 
+                <td> {{exam.name}} </td> 
+                <td> {{exam.sampleType}} </td> 
+                <td> {{exam.cost}}Bs </td> 
+                <td>
+                    <a href="/ExamsServices/Details/{{exam._id}}"> Details </a>
+                    <a href="/ExamsServices/Update/{{exam._id}}"> Modify </a>
+                    <a href="/ExamsServices/DelExamService/{{exam._id}}"> Delete </a>
+                </td> 
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block links %}
+    <a href="/home"> Home </a>
+{% endblock %}
