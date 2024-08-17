@@ -8,7 +8,7 @@
             <div>
                 <label for="name"> Name of the Instruction </label><br>
                 <input type="text" name="name" 
-                placeholder="Juan"
+                placeholder=""
                 required>
             </div> 
             <br>
@@ -16,7 +16,7 @@
                 <label for="description"> Description </label>
                 <br>
                 <input type="text" name="description" 
-                placeholder="Castillo"
+                placeholder=""
                 required>
             </div>
             <br>
@@ -25,5 +25,5 @@
 {% endblock %}
 
 {% block links %}
-    <a href="./instructionList"> Instruction List <a/>
+    <a href="{{url_for('isntructionsListView')}}"> Instruction List <a/>
 {% endblock %}

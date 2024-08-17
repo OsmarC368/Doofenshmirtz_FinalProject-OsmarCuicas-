@@ -46,8 +46,13 @@ def register():
             'password' : password,
             'username' : username
         }
+        
+        if user.find_one({'email':email}):
+            flash('This Email is Already Registered!', 'Error')
+            return redirect(url_for('register'))
 
         user.insert_one(newUser)
+        flash('New User Registered Succesfully')
         return redirect(url_for('login'))
 
     return render_template('./Login/register.html.jinja')
@@ -59,7 +64,7 @@ def login():
         password = request.form['password']
         userFound = user.find_one({'username': username, 'password': password})
         if not userFound:
-            flash('Please check your login details and try again.')
+            flash('Please check your login details and try again.', 'Error')
             return render_template('Login/login.html.jinja')
         else:
             user_obj = User()
@@ -90,26 +95,27 @@ def saveCategory():
             'name': name,
             'description': description
         }
-
         category.insert_one(newCategory)
+        flash('New Category Saved Succesfully')
         return redirect(url_for('saveCategory'))
 
     return render_template('./category/category.html.jinja')
 
-@app.route("/categoriesList", methods=["GET"])
+@app.route("/category/list", methods=["GET"])
 @login_required
 def categoriesListView():
     categoriesList = category.find()
     return render_template('./category/categoriesList.html.jinja', categoriesList = categoriesList)
 
-@app.route("/delCategory/<id>", methods=["GET"])
+@app.route("/category/delete/<id>", methods=["GET"])
 @login_required
 def delCategory(id):
     oid = ObjectId(id)
     catFound = category.find_one_and_delete({'_id' : oid})
+    flash('Category Deleted Succesfully')
     return redirect(url_for('categoriesListView'))
 
-@app.route("/updateCategory/<id>", methods=["GET", "POST"])
+@app.route("/category/update/<id>", methods=["GET", "POST"])
 @login_required
 def modifyCategory(id):
     oid = ObjectId(id)
@@ -121,6 +127,7 @@ def modifyCategory(id):
                                             'name': new_category['name'],
                                             'description': new_category['description']
                                         })
+        flash('Category Updated!')
         return redirect(url_for('categoriesListView'))
     return render_template("./category/updateCategory.html.jinja", category=catFound)
 
@@ -139,26 +146,28 @@ def saveInstruction():
             'name': name,
             'description': description
         }
-
+        
         medicalInstructions.insert_one(newInstruction)
+        flash('New Medical Instruction Saved Succesfully')
         return redirect(url_for('saveInstruction'))
 
     return render_template('./medicalInstruction/medicalInstruction.html.jinja')
 
-@app.route("/instructionList", methods=["GET"])
+@app.route("/instruction/list", methods=["GET"])
 @login_required
 def isntructionsListView():
     intructionList = medicalInstructions.find()
     return render_template('./medicalInstruction/instructionList.html.jinja', instructionList = intructionList)
 
-@app.route("/delInstruction/<id>", methods=["GET"])
+@app.route("/instruction/delete/<id>", methods=["GET"])
 @login_required
 def delInstruction(id):
     oid = ObjectId(id)
     intructionFound = medicalInstructions.find_one_and_delete({'_id' : oid})
+    flash('Instruction Deleted Succesfully')
     return redirect(url_for('isntructionsListView'))
 
-@app.route("/updateInstruction/<id>", methods=["GET", "POST"])
+@app.route("/instruction/update/<id>", methods=["GET", "POST"])
 @login_required
 def modifyInstruction(id):
     oid = ObjectId(id)
@@ -170,6 +179,7 @@ def modifyInstruction(id):
                                                             'name': new_instruction['name'],
                                                             'description': new_instruction['description']
                                                         })
+        flash('Instruction Updated!')
         return redirect(url_for('isntructionsListView'))
     return render_template("./medicalInstruction/updateInstruction.html.jinja", instruction=intructionFound)
 
@@ -185,6 +195,10 @@ def saveExam():
     categories = category.find()
     instructionList = medicalInstructions.find()
 
+    if not medicalInstructions.count_documents({}) > 0 or not category.count_documents({}) > 0:
+        flash('In Order to save a Exam/Service you must have at least 1 Category and 1 Medical Instruction')
+        return redirect(url_for('home'))
+
     if request.method == "POST":
         code = request.form['examCode']
         name = request.form['name']
@@ -192,6 +206,10 @@ def saveExam():
         sampleType = request.form['sampleType']
         cost = request.form['cost']
         medicalInstructionsX = request.form['instruction']
+    
+        if examService.find_one({'code': code}):
+            flash('The Exam/Service Code is Already Been Use!!!!')
+            return redirect(url_for('saveExam'))
 
         newExam = {
             'code': code,
@@ -203,7 +221,7 @@ def saveExam():
             'category': category.find_one({'_id': ObjectId(categoryX)})['name'],
             'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(medicalInstructionsX)})['name']
         }
-
+        flash('New Exam/Service Saved Succesfully!')
         examService.insert_one(newExam)
         return redirect(url_for('saveExam'))
 
@@ -222,6 +240,8 @@ def examListView():
 def delExamService(id):
     oid = ObjectId(id)
     examFound = examService.find_one_and_delete({'_id' : oid})
+    flash('Exam/Service Deleted!')
+
     return redirect(url_for('examListView'))
 
 @app.route("/ExamsServices/Update/<id>", methods=["GET", "POST"])
@@ -233,6 +253,11 @@ def modifyExam(id):
     examFound = examService.find_one({'_id': oid})
     if request.method == "POST":
         new_exam = request.form
+
+        if examService.find_one({'code': new_exam['examCode']}) and examFound['code'] != new_exam['examCode']:
+            flash('The Exam/Service Code is Already Been Use!!!!')
+            return redirect(url_for('examListView'))
+        
         examX = examService.replace_one({'_id': oid},
                                                         {
                                                             'code': new_exam['examCode'],
@@ -244,6 +269,7 @@ def modifyExam(id):
                                                             'category': category.find_one({'_id': ObjectId(new_exam['category'])})['name'],
                                                             'medicalInstruction': medicalInstructions.find_one({'_id': ObjectId(new_exam['instruction'])})['name']
                                                         })
+        flash('Exam/Service Updated!')
         return redirect(url_for('examListView'))
     return render_template("./examService/updateExam.html.jinja", exam=examFound, categories = categories, instructionsList = instructionList)
 
